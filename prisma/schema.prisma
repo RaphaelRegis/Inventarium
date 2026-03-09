@@ -12,13 +12,20 @@ datasource db {
   provider = "postgresql"
 }
 
-model Product {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  price       Float
-  quantity    Int
-  sku         String   @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+enum UserRole {
+  ADMIN
+  STOCKIST
+}
+
+model User {
+  id                String   @id @default(uuid())
+  name              String
+  email             String   @unique
+  taxIdentification String   @unique @map("tax_identification")
+  phoneNumber       String?  @map("phone_number")
+  role              UserRole @default(STOCKIST)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("users")
 }
