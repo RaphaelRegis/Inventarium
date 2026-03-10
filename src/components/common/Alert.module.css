@@ -1,0 +1,51 @@
+.alert {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  animation: slideDownFade 0.3s ease;
+  color: white;
+}
+
+.success {
+  background: var(--success);
+}
+
+.error {
+  background: var(--error);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+.message {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.closeBtn {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.8);
+  transition: var(--transition);
+}
+
+.closeBtn:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+@keyframes slideDownFade {
+  from { transform: translate(-50%, -20px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}

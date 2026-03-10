@@ -1,0 +1,47 @@
+.footer {
+  display: flex;
+  gap: 1rem;
+}
+
+.cancelBtn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  background: var(--gray-200);
+  color: var(--gray-800);
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.cancelBtn:hover {
+  background: var(--gray-300);
+}
+
+.confirmBtn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  color: white;
+  transition: var(--transition);
+  font-weight: 600;
+}
+
+.confirmBtn.warning {
+  background: var(--warning);
+}
+
+.confirmBtn.danger {
+  background: var(--error);
+}
+
+.confirmBtn.info {
+  background: var(--info);
+}
+
+.confirmBtn:hover {
+  filter: brightness(0.9);
+  transform: translateY(-1px);
+}
+
+.message {
+  font-size: 1.1rem;
+  color: var(--foreground);
+}
