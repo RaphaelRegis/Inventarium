@@ -1,0 +1,122 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table th {
+    padding: 1.25rem 1.5rem;
+    background: var(--gray-50);
+    font-weight: 600;
+    color: var(--gray-700);
+    border-bottom: 2px solid var(--border);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+[data-theme="dark"] .table th {
+    background: var(--gray-800);
+    color: var(--gray-300);
+}
+
+.table td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--foreground);
+    font-size: 0.9375rem;
+    transition: var(--transition);
+}
+
+.table tr:hover td {
+    background: var(--gray-50);
+}
+
+[data-theme="dark"] .table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.branchName {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.editBtn {
+    color: var(--info);
+    transition: var(--transition);
+}
+
+.deleteBtn {
+    color: var(--error);
+    transition: var(--transition);
+}
+
+.editBtn:hover,
+.deleteBtn:hover {
+    transform: scale(1.15);
+}
+
+.empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+}
+
+.pagination {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    background: var(--gray-50);
+}
+
+[data-theme="dark"] .pagination {
+    background: var(--gray-800);
+}
+
+.pageBtn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--foreground);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.pageBtn:not(:disabled):hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.pageBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
