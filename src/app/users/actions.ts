@@ -9,7 +9,7 @@ import { DeleteUserUseCase } from '@/services/users/DeleteUserUseCase';
 import { User } from '@/entities/users/User';
 import { revalidatePath } from 'next/cache';
 
-const userRepository = new UserRepositoryImpl(prisma);
+const userRepository = new UserRepositoryImpl();
 
 export async function fetchAllUsers() {
   const useCase = new GetAllUsersUseCase(userRepository);
@@ -25,7 +25,7 @@ export async function createUser(data: Partial<User>) {
 
 export async function updateUser(id: string, data: Partial<User>) {
   const useCase = new UpdateUserUseCase(userRepository);
-  const user = await useCase.execute(id, data as any);
+  const user = await useCase.execute({ id, ...data } as any);
   revalidatePath('/users');
   return user;
 }
