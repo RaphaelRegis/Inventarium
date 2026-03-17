@@ -9,6 +9,7 @@ interface CreateProductRequest {
   purchasePrice: number | Prisma.Decimal;
   retailPrice: number | Prisma.Decimal;
   supplierIds: string[];
+  branchIds: string[];
 }
 
 export class CreateProductUseCase {
@@ -20,8 +21,8 @@ export class CreateProductUseCase {
       throw new Error('Product with this name already exists');
     }
 
-    const { supplierIds, ...productData } = request;
+    const { supplierIds, branchIds, ...productData } = request;
 
-    return this.productRepository.create(productData, supplierIds);
+    return this.productRepository.create(productData, supplierIds, branchIds);
   }
 }

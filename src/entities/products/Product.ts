@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { Supplier } from '../suppliers/Supplier';
+import { Inventory } from '../inventories/Inventory';
 
 export interface Product {
   id: string;
@@ -11,4 +12,5 @@ export interface Product {
   createdAt: Date;
   updatedAt: Date;
   suppliers?: Supplier[];
+  inventories?: Inventory[];
 }

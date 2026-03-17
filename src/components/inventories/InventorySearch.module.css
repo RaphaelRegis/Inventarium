@@ -1,0 +1,117 @@
+.searchbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    gap: 2rem;
+}
+
+.inputWrapper {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+}
+
+.input {
+    width: 100%;
+    padding: 0.875rem 1rem 0.875rem 3rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--input-bg);
+    color: var(--foreground);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.filterGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filterGroup label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-600);
+}
+
+[data-theme="dark"] .filterGroup label {
+    color: var(--gray-400);
+}
+
+.select {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: var(--card-bg);
+    color: var(--foreground);
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.select:hover, .select:focus {
+    border-color: var(--primary);
+}
+
+.sortBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+    transition: var(--transition);
+    border: 1.5px solid transparent;
+}
+
+.sortBtn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+@media (max-width: 900px) {
+    .searchbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filters {
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filterGroup {
+        flex-direction: column;
+        align-items: stretch;
+        width: calc(50% - 0.5rem);
+    }
+    
+    .sortBtn {
+        justify-content: center;
+    }
+}

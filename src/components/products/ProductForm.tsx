@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Product } from '@/entities/products/Product';
 import SupplierSelectionModal from './SupplierSelectionModal';
+import BranchSelectionModal from './BranchSelectionModal';
 import styles from './ProductForm.module.css';
 
 interface ProductFormProps {
@@ -18,10 +19,12 @@ export default function ProductForm({ product, onSubmit, onCancel }: ProductForm
         remarks: '',
         purchasePrice: 0,
         retailPrice: 0,
-        supplierIds: [] as string[]
+        supplierIds: [] as string[],
+        branchIds: [] as string[]
     });
 
     const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
+    const [isBranchModalOpen, setIsBranchModalOpen] = useState(false);
 
     useEffect(() => {
         if (product) {
@@ -31,7 +34,8 @@ export default function ProductForm({ product, onSubmit, onCancel }: ProductForm
                 remarks: product.remarks || '',
                 purchasePrice: Number(product.purchasePrice),
                 retailPrice: Number(product.retailPrice),
-                supplierIds: product.suppliers?.map(s => s.id) || []
+                supplierIds: product.suppliers?.map(s => s.id) || [],
+                branchIds: product.inventories?.map((i: any) => i.branchId) || []
             });
         }
     }, [product]);
@@ -107,21 +111,35 @@ export default function ProductForm({ product, onSubmit, onCancel }: ProductForm
                 </div>
             </div>
 
-            <div className={styles.inputGroup}>
-                <label>Fornecedores</label>
-                <div className={styles.supplierSelector}>
-                    <button
-                        type="button"
-                        className={styles.selectBtn}
-                        onClick={() => setIsSupplierModalOpen(true)}
-                    >
-                        {formData.supplierIds.length > 0
-                            ? `${formData.supplierIds.length} fornecedor(es) selecionado(s)`
-                            : 'Selecionar Fornecedores'}
-                    </button>
-                    {formData.supplierIds.length > 0 && (
-                        <span className={styles.supplierHint}>Clique para alterar</span>
-                    )}
+            <div className={styles.row}>
+                <div className={styles.inputGroup}>
+                    <label>Fornecedores</label>
+                    <div className={styles.supplierSelector}>
+                        <button
+                            type="button"
+                            className={styles.selectBtn}
+                            onClick={() => setIsSupplierModalOpen(true)}
+                        >
+                            {formData.supplierIds.length > 0
+                                ? `${formData.supplierIds.length} selecionado(s)`
+                                : 'Selecionar Fornecedores'}
+                        </button>
+                    </div>
+                </div>
+
+                <div className={styles.inputGroup}>
+                    <label>Filiais de Estoque</label>
+                    <div className={styles.supplierSelector}>
+                        <button
+                            type="button"
+                            className={styles.selectBtn}
+                            onClick={() => setIsBranchModalOpen(true)}
+                        >
+                            {formData.branchIds.length > 0
+                                ? `${formData.branchIds.length} selecionada(s)`
+                                : 'Selecionar Filiais'}
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -152,6 +170,14 @@ export default function ProductForm({ product, onSubmit, onCancel }: ProductForm
             onClose={() => setIsSupplierModalOpen(false)}
             selectedSupplierIds={formData.supplierIds}
             onSelect={(ids) => setFormData(prev => ({ ...prev, supplierIds: ids }))}
+        />
+
+        <BranchSelectionModal
+            isOpen={isBranchModalOpen}
+            onClose={() => setIsBranchModalOpen(false)}
+            selectedBranchIds={formData.branchIds}
+            onSelect={(ids) => setFormData(prev => ({ ...prev, branchIds: ids }))}
+            isEditMode={!!product}
         />
         </>
     );

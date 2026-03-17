@@ -10,6 +10,7 @@ interface UpdateProductRequest {
   purchasePrice?: number | Prisma.Decimal;
   retailPrice?: number | Prisma.Decimal;
   supplierIds?: string[];
+  branchIds?: string[];
 }
 
 export class UpdateProductUseCase {
@@ -30,8 +31,8 @@ export class UpdateProductUseCase {
       }
     }
 
-    const { supplierIds, ...productData } = data;
+    const { supplierIds, branchIds, ...productData } = data;
 
-    return this.productRepository.update(id, productData, supplierIds);
+    return this.productRepository.update(id, productData, supplierIds, branchIds);
   }
 }
