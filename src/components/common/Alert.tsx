@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import styles from './Alert.module.css';
 
 export type AlertType = 'success' | 'error';
@@ -14,7 +15,10 @@ interface AlertProps {
 }
 
 export default function Alert({ message, type, isVisible, onClose, duration = 5000 }: AlertProps) {
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
     if (isVisible) {
       const timer = setTimeout(() => {
         onClose();
@@ -23,9 +27,9 @@ export default function Alert({ message, type, isVisible, onClose, duration = 50
     }
   }, [isVisible, duration, onClose]);
 
-  if (!isVisible) return null;
+  if (!mounted || !isVisible) return null;
 
-  return (
+  return createPortal(
     <div className={`${styles.alert} ${styles[type]}`}>
       <span className={styles.icon}>
         {type === 'success' ? (
@@ -44,6 +48,7 @@ export default function Alert({ message, type, isVisible, onClose, duration = 50
       <button className={styles.closeBtn} onClick={onClose}>
         &times;
       </button>
-    </div>
+    </div>,
+    document.body
   );
 }
