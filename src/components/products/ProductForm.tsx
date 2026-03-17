@@ -50,6 +50,7 @@ export default function ProductForm({ product, onSubmit, onCancel }: ProductForm
     };
 
     return (
+        <>
         <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.inputGroup}>
                 <label htmlFor="name">Nome do Produto</label>
@@ -144,13 +145,14 @@ export default function ProductForm({ product, onSubmit, onCancel }: ProductForm
                     {product ? 'Salvar Edição' : 'Cadastrar Produto'}
                 </button>
             </div>
-
-            <SupplierSelectionModal
-                isOpen={isSupplierModalOpen}
-                onClose={() => setIsSupplierModalOpen(false)}
-                selectedSupplierIds={formData.supplierIds}
-                onSelect={(ids) => setFormData(prev => ({ ...prev, supplierIds: ids }))}
-            />
         </form>
+
+        <SupplierSelectionModal
+            isOpen={isSupplierModalOpen}
+            onClose={() => setIsSupplierModalOpen(false)}
+            selectedSupplierIds={formData.supplierIds}
+            onSelect={(ids) => setFormData(prev => ({ ...prev, supplierIds: ids }))}
+        />
+        </>
     );
 }
