@@ -11,14 +11,16 @@ interface ProductSelectionModalProps {
     isOpen: boolean;
     onClose: () => void;
     selectedProductId: string | null;
-    onSelect: (id: string) => void;
+    onSelect: (product: Product) => void;
+    supplierFilterId?: string | null;
 }
 
 export default function ProductSelectionModal({
     isOpen,
     onClose,
     selectedProductId,
-    onSelect
+    onSelect,
+    supplierFilterId
 }: ProductSelectionModalProps) {
     const [products, setProducts] = useState<Product[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -44,20 +46,26 @@ export default function ProductSelectionModal({
     }, [isOpen]);
 
     const filteredProducts = useMemo(() => {
-        return products.filter(p =>
+        let result = products;
+        
+        if (supplierFilterId) {
+            result = result.filter(p => p.suppliers?.some(s => s.id === supplierFilterId));
+        }
+
+        return result.filter(p =>
             p.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
-    }, [products, searchQuery]);
+    }, [products, searchQuery, supplierFilterId]);
 
-    const handleToggleProduct = (id: string) => {
-        onSelect(id);
+    const handleToggleProduct = (product: Product) => {
+        onSelect(product);
     };
 
     const handleCreateProduct = async (data: any) => {
         try {
-            const newProduct = await productActions.createProduct(data);
-            setProducts(prev => [...prev, newProduct as Product]);
-            onSelect(newProduct.id);
+            const newProduct = (await productActions.createProduct(data)) as Product;
+            setProducts(prev => [...prev, newProduct]);
+            onSelect(newProduct);
             setIsCreating(false);
         } catch (error) {
             alert('Erro ao criar produto.');
@@ -90,7 +98,7 @@ export default function ProductSelectionModal({
                                         type="radio"
                                         name="selectedProduct"
                                         checked={selectedProductId === product.id}
-                                        onChange={() => handleToggleProduct(product.id)}
+                                        onChange={() => handleToggleProduct(product)}
                                     />
                                     <span className={styles.name}>{product.name}</span>
                                 </label>

@@ -78,7 +78,7 @@ export default function InventoryForm({ onSubmit, onCancel }: InventoryFormProps
             isOpen={isProductModalOpen}
             onClose={() => setIsProductModalOpen(false)}
             selectedProductId={productId}
-            onSelect={(id) => setProductId(id)}
+            onSelect={(product) => setProductId(product.id)}
         />
 
         <BranchSelectionModal
